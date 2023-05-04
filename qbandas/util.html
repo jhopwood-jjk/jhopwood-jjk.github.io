@@ -23,62 +23,6 @@
 </header>
 <section id="section-intro">
 <p>Miscellaneous utility functions to make life a little easier</p>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">&#34;&#34;&#34;
-Miscellaneous utility functions to make life a little easier
-&#34;&#34;&#34;
-
-import requests, json, re
-
-def str_dict(x: dict, quotes: bool = False) -&gt; str:
-    &#34;&#34;&#34; 
-    Makes a readable string out of a dictionary
-
-    Parameters
-    ----------
-    x : dict
-        the dictionary to stringify
-    quotes : bool
-        Flag to include quotes in the output. Defaults to False.
-
-    Returns
-    -------
-    str : the stringified dictionary
-    &#34;&#34;&#34;
-    text = json.dumps(x, indent=2)
-    text = re.sub(r&#34;\{\s*(\&#34;value\&#34;: .*)\s*\}&#34;, r&#34;{\1}&#34;, text)
-    text = re.sub(r&#34;\},\s*\{&#34;, r&#34;}, {&#34;, text)
-    if not quotes:
-        text = re.sub(&#34;[&#39;\&#34;]&#34;,&#34;&#34;, text)
-    return text
-
-def str_resp(r: requests.Response, quotes: bool = False) -&gt; str:
-    &#34;&#34;&#34; 
-    Takes a resonse object and makes it into a string
-
-    Parameters
-    ----------
-    r : requests.Response
-        The response object with JSON
-    quotes : bool
-        Flag to include quotes in the output. Defaults to False.
-
-    Returns
-    -------
-    str : a string representation
-    &#34;&#34;&#34;
-
-    text = str_dict(r.json(), quotes)
-    pattern = r&#34;\[[\d,\s\n]+\]&#34;
-    matches = re.findall(pattern, text)
-    for match in matches:
-        n = match.count(&#39;,&#39;) 
-        text = text.replace(match, f&#34;[...{n+1} items...]&#34;)
-    return text</code></pre>
-</details>
 </section>
 <section>
 </section>
@@ -104,32 +48,6 @@ def str_resp(r: requests.Response, quotes: bool = False) -&gt; str:
 <dt><strong><code>str</code></strong> :&ensp;<code>the stringified dictionary</code></dt>
 <dd>&nbsp;</dd>
 </dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def str_dict(x: dict, quotes: bool = False) -&gt; str:
-    &#34;&#34;&#34; 
-    Makes a readable string out of a dictionary
-
-    Parameters
-    ----------
-    x : dict
-        the dictionary to stringify
-    quotes : bool
-        Flag to include quotes in the output. Defaults to False.
-
-    Returns
-    -------
-    str : the stringified dictionary
-    &#34;&#34;&#34;
-    text = json.dumps(x, indent=2)
-    text = re.sub(r&#34;\{\s*(\&#34;value\&#34;: .*)\s*\}&#34;, r&#34;{\1}&#34;, text)
-    text = re.sub(r&#34;\},\s*\{&#34;, r&#34;}, {&#34;, text)
-    if not quotes:
-        text = re.sub(&#34;[&#39;\&#34;]&#34;,&#34;&#34;, text)
-    return text</code></pre>
-</details>
 </dd>
 <dt id="qbandas.util.str_resp"><code class="name flex">
 <span>def <span class="ident">str_resp</span></span>(<span>r: requests.models.Response, quotes: bool = False) ‑> str</span>
@@ -148,34 +66,6 @@ def str_resp(r: requests.Response, quotes: bool = False) -&gt; str:
 <dt><strong><code>str</code></strong> :&ensp;<code>a string representation</code></dt>
 <dd>&nbsp;</dd>
 </dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def str_resp(r: requests.Response, quotes: bool = False) -&gt; str:
-    &#34;&#34;&#34; 
-    Takes a resonse object and makes it into a string
-
-    Parameters
-    ----------
-    r : requests.Response
-        The response object with JSON
-    quotes : bool
-        Flag to include quotes in the output. Defaults to False.
-
-    Returns
-    -------
-    str : a string representation
-    &#34;&#34;&#34;
-
-    text = str_dict(r.json(), quotes)
-    pattern = r&#34;\[[\d,\s\n]+\]&#34;
-    matches = re.findall(pattern, text)
-    for match in matches:
-        n = match.count(&#39;,&#39;) 
-        text = text.replace(match, f&#34;[...{n+1} items...]&#34;)
-    return text</code></pre>
-</details>
 </dd>
 </dl>
 </section>
