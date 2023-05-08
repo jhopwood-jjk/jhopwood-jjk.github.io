@@ -4,9 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>qbandas API documentation</title>
-<meta name="description" content="Integrates the popular data handling library Pandas and the QuickBase
-API." />
+<title>qbandas.profiles.profiles API documentation</title>
+<meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -20,34 +19,93 @@ API." />
 <main>
 <article id="content">
 <header>
-<h1 class="title">Package <code>qbandas</code></h1>
+<h1 class="title">Module <code>qbandas.profiles.profiles</code></h1>
 </header>
 <section id="section-intro">
-<p>Integrates the popular data handling library Pandas and the QuickBase
-API.</p>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt><code class="name"><a title="qbandas.profiles" href="profiles/index.html">qbandas.profiles</a></code></dt>
+<dt id="qbandas.profiles.profiles.is_valid_profile"><code class="name flex">
+<span>def <span class="ident">is_valid_profile</span></span>(<span>profile: str, talk: bool = False) ‑> bool</span>
+</code></dt>
 <dd>
-<div class="desc"><p>Manage qbandas profiles …</p></div>
+<div class="desc"><p>Check if a profile is usable</p>
+<p>If a profile is valid, you will be able to make requests to the
+QuickBase API; however, these requests are not guaranteed to be
+authorized. If a profile doesn't exist, it is automaically
+invalid. </p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>profile</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the profile to check</dd>
+<dt><strong><code>talk</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether to tell you what is wrong with the profile's headers, by
+default False</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>the validity of the profile</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; import qbandas as qq
+&gt;&gt;&gt; qq.create_profile()
+&gt;&gt;&gt; qq.headers.valid()
+False
+</code></pre></div>
 </dd>
-<dt><code class="name"><a title="qbandas.records" href="records/index.html">qbandas.records</a></code></dt>
+<dt id="qbandas.profiles.profiles.list_profiles"><code class="name flex">
+<span>def <span class="ident">list_profiles</span></span>(<span>) ‑> list[str]</span>
+</code></dt>
 <dd>
-<div class="desc"><p>Functions that deal with sending records or information to a Quickbase
-application.</p></div>
+<div class="desc"><p>List all the usable profiles</p>
+<p>Profiles in this list are not guaranteed to authorize your requests.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list[str]</code></dt>
+<dd>The names of all the profiles</dd>
+</dl></div>
 </dd>
-<dt><code class="name"><a title="qbandas.schemas" href="schemas/index.html">qbandas.schemas</a></code></dt>
+<dt id="qbandas.profiles.profiles.set_profile"><code class="name flex">
+<span>def <span class="ident">set_profile</span></span>(<span>profile: str, *, host: str = None, user: str = None, auth: str = None, temp_token: bool = False, auto_user: bool = True) ‑> None</span>
+</code></dt>
 <dd>
-<div class="desc"><p>Methods that deal with handling local copies of QuickBase tables'
-schemas …</p></div>
+<div class="desc"><p>Configure a profile</p>
+<p>If no profile exists with the name <code>profile</code>, a new profile will be created. Unspecified arguments will not override existing profile
+information.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the profile to configure</dd>
+<dt><strong><code>host</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The QuickBase realm hostname, by default None</dd>
+<dt><strong><code>user</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The name of the user agent, by default None</dd>
+<dt><strong><code>auth</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The QuickBase API token, by default None</dd>
+<dt><strong><code>temp_token</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Specify if the API token is temporary, by default False</dd>
+<dt><strong><code>auto_user</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Specify if this profile should automatically populate the user
+argument with <code>profile</code>, by default True</dd>
+</dl>
+<h2 id="exmaples">Exmaples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; import qbandas as qq
+&gt;&gt;&gt; qq.set_profile('example', host='sample', auth='12345')
+&gt;&gt;&gt; qq._get_headers('example')
+{
+    'QB-Realm-Hostname': 'sample.quickbase.com'
+    'User-Agent': 'example'
+    'Authorization': 'QB-USER-TOKEN 12345'
+}
+</code></pre></div>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
 </section>
 <section>
 </section>
@@ -58,11 +116,16 @@ schemas …</p></div>
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="qbandas.profiles" href="profiles/index.html">qbandas.profiles</a></code></li>
-<li><code><a title="qbandas.records" href="records/index.html">qbandas.records</a></code></li>
-<li><code><a title="qbandas.schemas" href="schemas/index.html">qbandas.schemas</a></code></li>
+<li><code><a title="qbandas.profiles" href="index.html">qbandas.profiles</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="qbandas.profiles.profiles.is_valid_profile" href="#qbandas.profiles.profiles.is_valid_profile">is_valid_profile</a></code></li>
+<li><code><a title="qbandas.profiles.profiles.list_profiles" href="#qbandas.profiles.profiles.list_profiles">list_profiles</a></code></li>
+<li><code><a title="qbandas.profiles.profiles.set_profile" href="#qbandas.profiles.profiles.set_profile">set_profile</a></code></li>
 </ul>
 </li>
 </ul>
