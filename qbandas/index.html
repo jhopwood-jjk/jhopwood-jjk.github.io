@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>qbandas API documentation</title>
-<meta name="description" content="Integrates the popular data handling library Pandas and the QuickBase
-API …" />
+<meta name="description" content="qBandas …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -23,11 +22,32 @@ API …" />
 <h1 class="title">Package <code>qbandas</code></h1>
 </header>
 <section id="section-intro">
-<p>Integrates the popular data handling library Pandas and the QuickBase
-API.</p>
-<p>qBandas lets you quickly pull records and upload records to your
-QuickBase app. qBandas uses the QuickBase API to perform it's
-operations; you must have an API token.</p>
+<h1 id="qbandas">qBandas</h1>
+<p>qBandas (QuickBase + Pandas) is a Python package designed to effeciently
+transfer tabular data between QuickBase applications and the popular Python data
+handling package Pandas. If you are new to Pandas, you can read more about it
+<a href="https://pandas.pydata.org/">here</a>.</p>
+<p>The advantages of this approach over a QuickBase pipeline are:</p>
+<ul>
+<li>Access to databases through Python packages.</li>
+<li>Greater control over features like error logging, data processing,
+automated reporting, and scheduling.</li>
+<li>Significantly less performance impact on your QuickBase application.</li>
+<li>Access tabular data from local sources. </li>
+<li>Easily pull data from a QuickBase app into Python.</li>
+</ul>
+<p>The disadvantages of this approach compared to a pipeline are:</p>
+<ul>
+<li>Requires some knowledge of Python and Pandas.</li>
+</ul>
+<p>Please <a href="https://jhopwood-jjk.github.io/qbandas/index.html">read the docs</a> before
+using this package.</p>
+<h2 id="installation">Installation</h2>
+<pre><code class="language-bash">python3 -m pip install -U pip qbandas
+</code></pre>
+<p>You can now use it through import.</p>
+<pre><code class="language-python">import qbandas
+</code></pre>
 </section>
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
@@ -58,7 +78,12 @@ schemas …</p></div>
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#qbandas">qBandas</a><ul>
+<li><a href="#installation">Installation</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <ul id="index">
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>
