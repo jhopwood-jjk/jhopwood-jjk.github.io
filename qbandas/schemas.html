@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>qbandas.profiles API documentation</title>
-<meta name="description" content="Manage qbandas profiles …" />
+<title>qbandas.schemas API documentation</title>
+<meta name="description" content="Methods that deal with handling local copies of QuickBase tables&#39;
+schemas …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -19,25 +20,111 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>qbandas.profiles</code></h1>
+<h1 class="title">Module <code>qbandas.schemas</code></h1>
 </header>
 <section id="section-intro">
-<p>Manage qbandas profiles</p>
-<p>Profiles control the authorization of all qbandas requests. Each profile
-contains some set of QuickBase API headers.</p>
+<p>Methods that deal with handling local copies of QuickBase tables'
+schemas.</p>
+<p>Everytime you want to upload or fetch records on QuickBase, you must
+have a valid schema for the table. </p>
+<h2 id="arguments">Arguments</h2>
+<p>Field arguments for the schema are used to tell qbandas how to parse
+the incoming/outgoing data. You can set field arguments using
+<code><a title="qbandas.schemas.add_schema_args" href="#qbandas.schemas.add_schema_args">add_schema_args()</a></code> and <code><a title="qbandas.schemas.set_schema_args" href="#qbandas.schemas.set_schema_args">set_schema_args()</a></code>.</p>
+<p>For help creating datetime format strings, see
+<a href="https://www.programiz.com/python-programming/datetime/strftime">here</a>
+and <a href="https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior">here</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Field Type</th>
+<th>Supported arguments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>duration</td>
+<td>unit : str, either 'seconds' or 'milliseconds'</td>
+</tr>
+<tr>
+<td>date</td>
+<td>format : str, datetime format string</td>
+</tr>
+<tr>
+<td>datetime</td>
+<td>format : str, datetime format string</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt><code class="name"><a title="qbandas.profiles.profiles" href="profiles.html">qbandas.profiles.profiles</a></code></dt>
+<dt id="qbandas.schemas.add_schema_args"><code class="name flex">
+<span>def <span class="ident">add_schema_args</span></span>(<span>table_name: str, fields: list = None, arguments: dict = None, *fields_, **arguments_)</span>
+</code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Add arguments to a table's schema</p>
+<p>Will append to the schema and override any existing arguments with
+the same name</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>table_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The table to update</dd>
+<dt><strong><code>fields</code></strong> :&ensp;<code>list</code></dt>
+<dd>The field names to update, by default None</dd>
+<dt><strong><code>arguments</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The arguments to add, by default None</dd>
+</dl></div>
+</dd>
+<dt id="qbandas.schemas.fetch_schema"><code class="name flex">
+<span>def <span class="ident">fetch_schema</span></span>(<span>dbid: str, profile: str, table_name: str = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Download a local copy of a table's structure from a QuickBase
+application.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>dbid</code></strong> :&ensp;<code>str</code></dt>
+<dd>The unique identifier of the table in QuickBase.</dd>
+<dt><strong><code>profile</code></strong> :&ensp;<code>str</code></dt>
+<dd>The profile to authorize this request</dd>
+<dt><strong><code>table_name</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The name of the table. None uses the dbid, by default None</dd>
+</dl></div>
+</dd>
+<dt id="qbandas.schemas.list_schemas"><code class="name flex">
+<span>def <span class="ident">list_schemas</span></span>(<span>) ‑> list[str]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List the names of all the usable schemas.</p>
+<p>The names are 'table_names'</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list[str]</code></dt>
+<dd>The names of all the usable schemas</dd>
+</dl></div>
+</dd>
+<dt id="qbandas.schemas.set_schema_args"><code class="name flex">
+<span>def <span class="ident">set_schema_args</span></span>(<span>table_name: str, fields: list = None, arguments: dict = None, *fields_, **arguments_)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set the arguments for some fields in a given schema</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>table_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The nameof the table to configure</dd>
+<dt><strong><code>fields</code></strong> :&ensp;<code>list</code>, optional</dt>
+<dd>The fields to configure, by default None</dd>
+<dt><strong><code>arguments</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>The arguments to add, by default None</dd>
+</dl></div>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
 </section>
 <section>
 </section>
@@ -45,17 +132,22 @@ contains some set of QuickBase API headers.</p>
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#arguments">Arguments</a></li>
+</ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="qbandas" href="../index.html">qbandas</a></code></li>
+<li><code><a title="qbandas" href="index.html">qbandas</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
-<ul>
-<li><code><a title="qbandas.profiles.profiles" href="profiles.html">qbandas.profiles.profiles</a></code></li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="qbandas.schemas.add_schema_args" href="#qbandas.schemas.add_schema_args">add_schema_args</a></code></li>
+<li><code><a title="qbandas.schemas.fetch_schema" href="#qbandas.schemas.fetch_schema">fetch_schema</a></code></li>
+<li><code><a title="qbandas.schemas.list_schemas" href="#qbandas.schemas.list_schemas">list_schemas</a></code></li>
+<li><code><a title="qbandas.schemas.set_schema_args" href="#qbandas.schemas.set_schema_args">set_schema_args</a></code></li>
 </ul>
 </li>
 </ul>
